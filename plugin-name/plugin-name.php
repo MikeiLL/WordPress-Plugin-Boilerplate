@@ -38,14 +38,14 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/Autoload.php';
-spl_autoload_register( [ new Loader\Autoload( 'PLUGIN_NAME', __DIR__ . '/includes/' ), 'load' ] );
+spl_autoload_register( [ new PLUGIN_NAME_Loader\Autoload( 'PLUGIN_NAME', __DIR__ . '/includes/' ), 'load' ] );
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_plugin_name() {
-	PLUGIN_NAME\Activator::activate();
+    PLUGIN_NAME\Activator::activate();
 }
 
 /**
@@ -53,7 +53,7 @@ function activate_plugin_name() {
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_plugin_name() {
-	PLUGIN_NAME\Deactivator::deactivate();
+    PLUGIN_NAME\Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_plugin_name' );
@@ -76,8 +76,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  */
 function run_plugin_name() {
 
-	$plugin = new PLUGIN_NAME\Core\Plugin_Name();
-	$plugin->run();
+    $plugin = new PLUGIN_NAME\Core\Plugin_Name();
+    $plugin->run();
 
 }
 run_plugin_name();
