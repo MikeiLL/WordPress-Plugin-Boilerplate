@@ -1,4 +1,5 @@
 <?php
+namespace PLUGIN_NAME\Activator;
 
 /**
  * Fired during plugin activation
