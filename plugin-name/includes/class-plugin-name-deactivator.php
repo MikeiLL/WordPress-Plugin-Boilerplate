@@ -1,5 +1,5 @@
 <?php
-namespace PLUGIN_NAME\Deactivator;
+namespace PLUGIN_NAME;
 
 /**
  * Fired during plugin deactivation

@@ -45,26 +45,32 @@ spl_autoload_register( [ new PLUGIN_NAME_Loader\Autoload( 'PLUGIN_NAME', __DIR__
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_plugin_name() {
-    PLUGIN_NAME\Activator::activate();
+    PLUGIN_NAME\Plugin_Name_Activator::activate();
 }
+
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_plugin_name() {
-    PLUGIN_NAME\Deactivator::deactivate();
+    PLUGIN_NAME\Plugin_Name_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_plugin_name' );
-register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
+//register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
+
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks is located at
+ * includes/class-plugin-name.php
+ */
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
-
 /**
  * Begins execution of the plugin.
  *
@@ -75,9 +81,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
  * @since    1.0.0
  */
 function run_plugin_name() {
-
-    $plugin = new PLUGIN_NAME\Core\Plugin_Name();
+    $plugin = new PLUGIN_NAME\Plugin_Name();
     $plugin->run();
-
 }
 run_plugin_name();
+
+

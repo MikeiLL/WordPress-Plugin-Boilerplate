@@ -1,4 +1,5 @@
 <?php
+namespace PLUGIN_NAME;
 
 /**
  * The public-facing functionality of the plugin.

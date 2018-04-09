@@ -1,5 +1,5 @@
 <?php
-namespace PLUGIN_NAME\i18n;
+namespace PLUGIN_NAME;
 
 /**
  * Define the internationalization functionality

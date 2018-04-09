@@ -1,5 +1,5 @@
 <?php
-namespace PLUGIN_NAME\Loader;
+namespace PLUGIN_NAME;
 
 /**
  * Register all actions and filters for the plugin

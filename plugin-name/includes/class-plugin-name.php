@@ -1,5 +1,5 @@
 <?php
-namespace PLUGIN_NAME\Core;
+namespace PLUGIN_NAME;
 
 /**
  * The file that defines the core plugin class

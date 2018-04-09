@@ -2,8 +2,8 @@
 namespace PLUGIN_NAME_Loader;
 
 /**
- * Simple PSR-4 autoloader
- * See http://codereview.stackexchange.com/a/150308/318 for an explanation
+ *
+ * Based on: http://codereview.stackexchange.com/a/150308/318
  */
 
 class Autoload {
@@ -40,12 +40,13 @@ class Autoload {
      */
     public function load( $search )
     {
-
         if ( strncmp( $this->namespace, $search, $this->length ) !== 0 ) {
             return;
         }
         $name = substr( $search, $this->length );
-        $path = $this->dir . str_replace( '\\', '/', $name ) . '.php';
+        // Match Class Name to File Naming Convention
+        $name = "class-" . strtolower(str_replace("_", "-", $name));
+        $path = $this->dir . $name . '.php';
         if ( is_readable( $path ) ) {
             require $path;
         }
