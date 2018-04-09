@@ -101,4 +101,7 @@ class Plugin_Name_Public {
 
 	}
 
+	public function display_something(){
+	    include_once(__DIR__ . '/partials/plugin-name-public-display.php');
+    }
 }

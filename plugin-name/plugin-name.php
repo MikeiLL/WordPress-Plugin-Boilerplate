@@ -39,6 +39,7 @@ define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/Autoload.php';
 spl_autoload_register( [ new PLUGIN_NAME_Loader\Autoload( 'PLUGIN_NAME', __DIR__ . '/includes/' ), 'load' ] );
+spl_autoload_register( [ new PLUGIN_NAME_Loader\Autoload( 'PLUGIN_NAME', __DIR__ . '/public/' ), 'load' ] );
 
 /**
  * The code that runs during plugin activation.
@@ -58,7 +59,7 @@ function deactivate_plugin_name() {
 }
 
 register_activation_hook( __FILE__, 'activate_plugin_name' );
-//register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
+register_deactivation_hook( __FILE__, 'deactivate_plugin_name' );
 
 /**
  * The core plugin class that is used to define internationalization,

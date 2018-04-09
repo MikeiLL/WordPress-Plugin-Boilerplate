@@ -125,6 +125,9 @@ class Plugin_Name_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
+		$plugin_public = new Plugin_Name/Plugin_Name_Public();
+		$plugin_public->display_something();
+
 	}
 
 }
