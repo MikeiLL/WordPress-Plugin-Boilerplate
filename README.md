@@ -1,15 +1,10 @@
-# WordPress Plugin Boilerplate
+# WordPress Plugin Boilerplate with Namespace and Autoloader Support
 
-A standardized, organized, object-oriented foundation for building high-quality WordPress Plugins.
+This is a fork of the [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate) project and adds support for Namespaces and Autoloader. It requires PHP 5.6 and greater.
 
 ## Contents
 
-The WordPress Plugin Boilerplate includes the following files:
-
-* `.gitignore`. Used to exclude certain files from the repository.
-* `CHANGELOG.md`. The list of changes to the core project.
-* `README.md`. The file that you’re currently reading.
-* A `plugin-name` directory that contains the source code - a fully executable WordPress plugin.
+The `wp-plugin-name` directory contains the source code - a fully executable WordPress plugin.
 
 ## Features
 
@@ -20,31 +15,79 @@ The WordPress Plugin Boilerplate includes the following files:
 
 ## Installation
 
-The Boilerplate can be installed directly into your plugins folder "as-is". You will want to rename it and the classes inside of it to fit your needs. For example, if your plugin is named 'example-me' then:
+The Boilerplate can be installed directly into your plugins folder "as-is". You will want to rename it and the classes inside of it to fit your needs.
 
-* rename files from `plugin_name` to `example_me`
-* change `plugin_name` to `example_me`
-* change `PLUGIN_NAME_` to `EXAMPLE_ME_`
+* Copy wp-plugin-name to your plugin's directory and rename it to your plugin's name
+* Perform a find and replace at the project level as follows:
+  1. Find the text `wp-plugin-name` and replace with `your-plugin-name` in all files
+  2. Find the text `WP_Plugin_Name` and replace with `Your_Plugin_Name` in all files
+  3. Rename the `css` and `js` files under `inc\admin\css`, `inc\admin\js\`, `inc\views\js`, `inc\views\css` and replace the string `wp-plugin-name` with `your-plugin-name`
+  4. Rename the `pot` file under `languages` and replace the string `wp-plugin-name` with `your-plugin-name`
+  5. Find the text `http://example.com` and replace with your URI in all files
+  6. Find the text `Your Name or Your Company` and replace with your name in all files
+* Activate the plugin
 
-It's safe to activate the plugin at this point. Because the Boilerplate has no real functionality there will be no menu items, meta boxes, or custom post types added until you write the code.
+#### Quick Commands to perform the Find and Replace #####
+```	bash
+# After having downloaded and extracted the archive, navigate to the folder containing the plugin
+$ mv wp-plugin-name my-awesome-plugin
+$ cd my-awesome-plugin
+```
+```	bash
+# Replace text for "example.com/wp-plugin-name-uri" and "example.com"
+$ grep -rl "example.com/wp-plugin-name-uri" ./* | xargs sed -i "s/example.com\/wp-plugin-name-uri/somedomain.com\/my-awesome-plugin-uri/g"
 
-## WordPress.org Preparation
+$ grep -rl "example.com" ./* | xargs sed -i "s/example.com/somedomain.com/g"
+```
+```	bash
+# Replace text for "wp-plugin-name"
+$ grep -rl "wp-plugin-name" ./* | xargs sed -i "s/wp-plugin-name/my-awesome-plugin/g"
+```
+```	bash
+# Replace Namespace references for the text "WP_Plugin_Name"
+$ grep -rl "WP_Plugin_Name" ./* | xargs sed -i "s/WP_Plugin_Name/My_Awesome_Plugin/g"
+```
+```	bash
+# Rename Files with the text "wp-plugin-name" in them
+$ find . -iname '*wp-plugin-name*' -exec rename 's/wp-plugin-name/my-awesome-plugin/' {} \;
+```
+```	bash
+# Replace text for Your Name
+$ grep -rl "Your Name or Your Company" ./* | xargs sed -i "s/Your Name or Your Company/Your Name/g"
+```
+Note that this will activate the source code of the Boilerplate, but because the Boilerplate has no real functionality there will be no menu items, meta boxes, or custom post types added.
 
-The original launch of this version of the boilerplate included the folder structure needed for using your plugin on WordPress.org. That folder structure has been moved to its own repo here: https://github.com/DevinVinson/Plugin-Directory-Boilerplate
+### Plugin Structure
 
-## Recommended Tools
+If you want to include your own classes, or third-party libraries
 
-### i18n Tools
+* `wp-plugin-name/inc/admin` - admin-specific functionality
+* `wp-plugin-name/inc/core` - plugin core to register hooks, load files etc
+* `wp-plugin-name/inc/frontend` - public-facing functionality
+* `wp-plugin-name/inc/common` - functionality shared between the admin area and the public-facing parts
+* `wp-plugin-name/inc/libraries` - libraries that the plugin may use
 
-The WordPress Plugin Boilerplate uses a variable to store the text domain used when internationalizing strings throughout the Boilerplate. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
+### PHP Version
+Requires PHP `5.6.0` or greater
 
+# Developer Notes
+
+### The BoilerPlate uses a variable for the Text Domain
+
+The WordPress Plugin Boilerplate uses a **variable** (`$this->plugin_text_domain`) to store the text domain, used when internationalizing strings. To take advantage of this method, there are tools that are recommended for providing correct, translatable files:
+
+#### i18n Tools
 * [Poedit](http://www.poedit.net/)
 * [makepot](http://i18n.svn.wordpress.org/tools/trunk/)
 * [i18n](https://github.com/grappler/i18n)
 
-Any of the above tools should provide you with the proper tooling to internationalize the plugin.
+Any of the above tools should provide you with the proper tooling to internationalize the plugin. However, if you face problems translating the strings with an automated tool/process, replace `$this->plugin_text_domain` with the literal string of your plugin's text domain throughout the plugin.
 
-## License
+### References:
+* [Here's a discussion from the original project in favor of using variables](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/issues/59)
+* [The Plugin Handbook Recommended Way (i.e. not to use variables)](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#text-domains)
+
+# License
 
 The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
 
@@ -56,42 +99,16 @@ The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
 
 A copy of the license is included in the root of the plugin’s directory. The file is named `LICENSE`.
 
-## Important Notes
-
-### Licensing
-
-The WordPress Plugin Boilerplate is licensed under the GPL v2 or later; however, if you opt to use third-party code that is not compatible with v2, then you may need to switch to using code that is GPL v3 compatible.
+If you opt to use third-party code that is not compatible with v2, then you may need to switch to using code that is GPL v3 compatible.
 
 For reference, [here's a discussion](http://make.wordpress.org/themes/2013/03/04/licensing-note-apache-and-gpl/) that covers the Apache 2.0 License used by [Bootstrap](http://twitter.github.io/bootstrap/).
 
-### Includes
+# History
 
-Note that if you include your own classes, or third-party libraries, there are three locations in which said files may go:
-
-* `plugin-name/includes` is where functionality shared between the admin area and the public-facing parts of the site reside
-* `plugin-name/admin` is for all admin-specific functionality
-* `plugin-name/public` is for all public-facing functionality
-
-Note that previous versions of the Boilerplate did not include `Plugin_Name_Loader` but this class is used to register all filters and actions with WordPress.
-
-The example code provided shows how to register your hooks with the Loader class.
-
-### What About Other Features?
-
-The previous version of the WordPress Plugin Boilerplate included support for a number of different projects such as the [GitHub Updater](https://github.com/afragen/github-updater).
-
-These tools are not part of the core of this Boilerplate, as I see them as being additions, forks, or other contributions to the Boilerplate.
-
-The same is true of using tools like Grunt, Composer, etc. These are all fantastic tools, but not everyone uses them. In order to  keep the core Boilerplate as light as possible, these features have been removed and will be introduced in other editions, and will be listed and maintained on the project homepage.
+The original launch of this version of the boilerplate included the folder structure needed for using your plugin on WordPress.org. That folder structure has been moved to its own repo here: https://github.com/DevinVinson/Plugin-Directory-Boilerplate
 
 # Credits
 
-The WordPress Plugin Boilerplate was started in 2011 by [Tom McFarlin](http://twitter.com/tommcfarlin/) and has since included a number of great contributions. In March of 2015 the project was handed over by Tom to Devin Vinson.
+The WordPress Plugin Boilerplate was started in 2011 by [Tom McFarlin](http://twitter.com/tommcfarlin/) and has since included a number of great contributions. In March of 2015 the project was handed over by Tom to [Devin Vinson](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate/)
 
-The current version of the Boilerplate was developed in conjunction with [Josh Eaton](https://twitter.com/jjeaton), [Ulrich Pogson](https://twitter.com/grapplerulrich), and [Brad Vincent](https://twitter.com/themergency).
 
-The homepage is based on a design as provided by [HTML5Up](http://html5up.net), the Boilerplate logo was designed by Rob McCaskill of [BungaWeb](http://bungaweb.com), and the site `favicon` was created by [Mickey Kay](https://twitter.com/McGuive7).
-
-## Documentation, FAQs, and More
-
-If you’re interested in writing any documentation or creating tutorials please [let me know](http://devinvinson.com/contact/) .
