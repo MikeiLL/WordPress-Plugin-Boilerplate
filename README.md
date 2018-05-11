@@ -39,6 +39,8 @@ $ grep -rl "example.com/wp-plugin-name-uri" ./* | xargs sed -i "s/example.com\/w
 
 $ grep -rl "example.com" ./* | xargs sed -i "s/example.com/somedomain.com/g"
 ```
+(**NOTE**: on OSX you may have to explicitly give `''` as arguments to `sed -i`, so `sed -i ''`)
+
 ```	bash
 # Replace text for "wp-plugin-name"
 $ grep -rl "wp-plugin-name" ./* | xargs sed -i "s/wp-plugin-name/my-awesome-plugin/g"
